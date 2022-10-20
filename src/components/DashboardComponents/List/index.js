@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./styles.css";
 import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
 import TrendingDownRoundedIcon from "@mui/icons-material/TrendingDownRounded";
+import Tooltip from "@mui/material/Tooltip";
+import { motion } from "framer-motion";
+import "./styles.css";
 
-function List({ coin }) {
+function List({ coin, delay }) {
   const [volume, setVolume] = useState(coin.total_volume);
 
   useEffect(() => {
@@ -35,33 +37,50 @@ function List({ coin }) {
 
   return (
     <a href={`/coin?${coin.id}`}>
-      <tr className="list-wrapper">
-        <td className="image-td">
-          <img src={coin.image} className="list-logo" alt="coin-img"/>
-        </td>
-
+      <motion.tr
+        className="list-wrapper"
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{
+          type: "spring",
+          duration: 0.5,
+          delay: 0.25 + delay * 0.1,
+        }}
+      >
+        <Tooltip title="Logo">
+          <td className="image-td">
+            <img src={coin.image} className="list-logo" alt="coin-img"/>
+          </td>
+        </Tooltip>
         <td className="coin-info ">
-          <p className="symbol td-text">{coin.symbol}-USD</p>
-          <p className="name td-text" style={{ marginBottom: 0 }}>
-            {coin.name}
-          </p>
+          <Tooltip title="Symbol">
+            <p className="symbol td-text">{coin.symbol}-USD</p>
+          </Tooltip>
+          <Tooltip title="Name">
+            <p className="name td-text" style={{ marginBottom: 0 }}>
+              {coin.name}
+            </p>
+          </Tooltip>
         </td>
         {coin.price_change_percentage_24h > 0 ? (
-          <td className="chip-flex td-chip-flex ">
-            <div
-              className="chip td-text td-chips"
-              style={{
-                color: "var(--green)",
-                borderColor: "var(--green)",
-              }}
-            >
-              {"+" + coin.price_change_percentage_24h.toFixed(2) + " %"}
-            </div>
-            <TrendingUpRoundedIcon
-              className="trending-icon td-icon"
-              fontSize="2.5rem"
-            />
-          </td>
+          <Tooltip title="Price Change">
+            <td className="chip-flex td-chip-flex ">
+              <div
+                className="chip td-text td-chips"
+                style={{
+                  color: "var(--green)",
+                  borderColor: "var(--green)",
+                }}
+              >
+                {"+" + coin.price_change_percentage_24h.toFixed(2) + " %"}
+              </div>
+              <TrendingUpRoundedIcon
+                className="trending-icon td-icon"
+                fontSize="2.5rem"
+              />
+            </td>
+          </Tooltip>
         ) : (
           <td className="chip-flex td-chip-flex">
             <div className="chip red td-text td-chips">
@@ -74,23 +93,35 @@ function List({ coin }) {
           </td>
         )}
         {coin.price_change_percentage_24h > 0 ? (
-          <td className="price td-text" style={{ textAlign: "left" }}>
-            ${coin.current_price.toLocaleString()}
-          </td>
+          <Tooltip title="Current Price">
+            <td className="price td-text" style={{ textAlign: "left" }}>
+              ${coin.current_price.toLocaleString()}
+            </td>
+          </Tooltip>
         ) : (
-          <td className="price price-red td-text" style={{ textAlign: "left" }}>
-            ${coin.current_price.toLocaleString()}
-          </td>
+          <Tooltip title="Current Price">
+            <td
+              className="price price-red td-text"
+              style={{ textAlign: "left" }}
+            >
+              ${coin.current_price.toLocaleString()}
+            </td>
+          </Tooltip>
         )}
-
-        <td className="name2 td-text td-volume">
-          ${coin.total_volume.toLocaleString()}
-        </td>
-        <td className="name2 td-text td-volume-mobile">${volume}</td>
-        <td className="name2 td-text td-cap">
-          ${coin.market_cap.toLocaleString()}
-        </td>
-      </tr>
+        <Tooltip title="Total Volume">
+          <td className="name2 td-text td-volume">
+            ${coin.total_volume.toLocaleString()}
+          </td>
+        </Tooltip>
+        <Tooltip title="Total Volume">
+          <td className="name2 td-text td-volume-mobile">${volume}</td>
+        </Tooltip>
+        <Tooltip title="Market Cap">
+          <td className="name2 td-text td-cap">
+            ${coin.market_cap.toLocaleString()}
+          </td>
+        </Tooltip>
+      </motion.tr>
     </a>
   );
 }
