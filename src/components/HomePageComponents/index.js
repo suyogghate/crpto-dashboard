@@ -5,6 +5,7 @@ import gradient from "../../assets/gradient.png";
 import {motion} from "framer-motion";
 // import Button from "../Button";
 import OutlinedButton from "../OutlinedButton/Button";
+import Typewriter from "typewriter-effect";
 import {RWebShare} from "react-web-share";
 import { APP_URL } from "../../constants";
 
@@ -12,16 +13,18 @@ function LandingPageComponent() {
   return (
     <div className="flex-wrapper">
       <div className="heading-container">
-        <motion.h1
-          className="big-heading"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", duration: 1 }}
-        >
-          <span className="stroke">Track Crypto</span>
+        <div className="typing">
+          <Typewriter 
+            options={{
+              strings:["Track.", "Follow.", "Compare.", "Invest."],
+              autoStart: true,
+              loop: true,
+            }}
+          />
+        </div>
+          {/* <span className="stroke">Track Crypto</span> */}
           <br />
           <span className="big-heading-blue">Real Time.</span>
-        </motion.h1>
         <p className="para">
           Track crypto through a public api in real time. Visit the dashboard to
           do so!

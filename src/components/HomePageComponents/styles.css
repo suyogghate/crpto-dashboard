@@ -13,7 +13,9 @@
 }
 
 .big-heading-blue {
+  font-size: 8rem;
   color: var(--blue);
+  -webkit-text-stroke-width: 2px;
 }
 
 .para {
@@ -26,6 +28,18 @@
   align-items: center;
   padding: 2rem 0rem;
   gap: 2rem;
+}
+
+.stroke{
+  font-size: 8rem;
+
+}
+
+.typing{
+  font-size: 8rem;
+  font-weight: 500;
+  color: var(--white);
+  margin-top: 100px;
 }
 
 .stroke:hover {
