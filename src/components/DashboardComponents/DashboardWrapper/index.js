@@ -7,11 +7,12 @@ import TabContext from "@mui/lab/TabContext";
 import Grid from "../Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import List from "../List";
+
 function DashboardWrapper({ data }) {
   const [value, setValue] = React.useState(0);
 
   const style = {
-    color: "white",
+    color: "var(--white)",
     width: "50vw",
     fontSize: "1.2rem",
     fontWeight: 600,
@@ -51,7 +52,7 @@ function DashboardWrapper({ data }) {
                 <p>No Crypto Currencies Found</p>
               ) : (
                 data.map((coin, i) => (
-                  <Grid coin={coin} key={i} delay={(i + 4) % 4} />
+                  <Grid coin={coin} key={i} delay={(i + 5) % 5} />
                 ))
               )}
             </div>
@@ -62,7 +63,7 @@ function DashboardWrapper({ data }) {
                 <p>No Crypto Currencies Found</p>
               ) : (
                 data.map((coin, i) => (
-                  <List coin={coin} key={i} delay={(i + 7) % 7} />
+                  <List coin={coin} key={i} delay={(i + 8) % 8} />
                 ))
               )}
             </table>

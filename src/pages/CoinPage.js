@@ -12,6 +12,8 @@ import { getPrices } from "../functions/getPrices";
 import { getPriorDate } from "../functions/getPriorDate";
 import { getCoinData } from "../functions/getCoinData";
 import ColorToggleButton from "../components/CoinPageComponents/Toggle";
+import { convertNumbers } from "../functions/convertNumbers";
+import Footer from "../components/Footer";
 
 function CoinPage() {
   const [searchParams] = useSearchParams();
@@ -51,6 +53,28 @@ function CoinPage() {
       mode: "index",
       intersect: false,
     },
+    scales: {
+      y: {
+        ticks:
+          type === "market_caps"
+            ? {
+                callback: function (value) {
+                  return "$" + convertNumbers(value);
+                },
+              }
+            : type === "total_volumes"
+            ? {
+                callback: function (value) {
+                  return convertNumbers(value);
+                },
+              }
+            : {
+                callback: function (value, index, ticks) {
+                  return "$" + value.toLocaleString();
+                },
+              },
+      },
+    },
   };
 
   useEffect(() => {
@@ -62,7 +86,7 @@ function CoinPage() {
   const getData = async () => {
     const response_data = await getCoinData(searchParams, true);
     setData(response_data);
-    const prices_data = await getPrices(response_data.id, days);
+    const prices_data = await getPrices(response_data.id, days, type);
     setPrices(prices_data);
     var dates = getDaysArray(priorDate, today);
     setChartData({
@@ -73,7 +97,7 @@ function CoinPage() {
           borderWidth: 2,
           fill: false,
           tension: 0.25,
-          backgroundColor: "#111",
+          backgroundColor: "transparent",
           borderColor: "#3a80e9",
           pointRadius: 0,
         },
@@ -96,7 +120,7 @@ function CoinPage() {
 
   const handleChange = async (event) => {
     setDays(event.target.value);
-    const prices_data = await getPrices(data.id, event.target.value);
+    const prices_data = await getPrices(data.id, event.target.value, type);
     setPrices(prices_data);
     const priorDate = getPriorDate(event.target.value);
     var dates = getDaysArray(priorDate, today);
@@ -136,6 +160,9 @@ function CoinPage() {
             <LineChart chartData={chartData} options={options} />
           </div>
           <CoinPageDesc name={data.name} desc={data.description.en} />
+          <div>
+            <Footer />
+          </div>
         </>
       )}
     </>

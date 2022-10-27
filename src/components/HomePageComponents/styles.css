@@ -4,6 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  min-height: 90vh;
 }
 
 .big-heading {
@@ -43,24 +44,24 @@
 }
 
 .phone {
-  width: 100%;
-  /* height: 60%; */
+  width: 65%;
+  scale: 1.5;
   display: block;
   margin-left: auto;
   margin-right: auto;
   position: absolute;
-  left: 70px;
-  top: 40px;
-  right: 0px;
+  top: 90px;
+  right: 0;
   min-width: 270px;
 }
 
 .gradient {
   position: absolute;
-  width: 50%;
+  width: 45%;
   object-fit: contain;
-  top: 7rem;
-  right: 2rem;
+  top: 5rem;
+  right: 1rem;
+  /* margin-bottom: 50px; */
   min-width: 200px;
 }
 
@@ -93,7 +94,7 @@
     flex-direction: column;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
   }
 
@@ -105,8 +106,10 @@
   .gradient {
     top: 6rem;
     min-width: 200px;
+    max-width: 300px;
     margin-top: 0rem;
     padding-bottom: 3rem;
+    max-height: 500px;
   }
 
   .button-div {
@@ -117,5 +120,9 @@
 
   .big-heading {
     font-size: 3.5rem;
+  }
+
+  .phone{
+    max-width: 300px;
   }
 }
