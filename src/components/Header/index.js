@@ -60,12 +60,12 @@ function Header() {
         <a href="/compare">
           <p className="links">Compare</p>
         </a>
-        <a href="/login">
+        {/* <a href="/login">
           <p className="links">Login</p>
         </a>
         <a href="/signup">
           <p className="links">Sign Up</p>
-        </a>
+        </a> */}
         <a href="/dashboard">
           <p className="links">
             <Button text="Dashboard" />
